@@ -1,0 +1,44 @@
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<title>GDG</title>
+
+
+<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+
+
+</head>
+<body>
+	<input type="text" style="float:left;margin-top:150px">
+	<input type="button" value="add to dictionary"  onclick="add()" style="float:left;margin-top:150px">
+    	
+
+ 	<textarea name="myTextArea"  id="myTextArea" cols="30" rows="4" style = 'width:500px;height:200px;margin-bottom:20px;float:left;'>
+	</textarea> 
+    	<input type="button" value="Submit" onclick="spellcheck()" />
+	
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script>function spellcheck(){
+  $('#myTextArea').keydown(function(){
+    $.getJSON("dictionary.json",function(data){
+	my=data;
+      var search = $('#myTextArea').val();
+      var regex = new RegExp(search, 'i');
+      var output;
+      var arr=search.split(" ");
+      $.each(data, function(key, val){
+        for(i=0;i<arr.length;i+=1){
+		if(data.commonWords.search(regex)==arr[i]){temp=1}
+		if(temp==1){arr[i]=="<b>"+arr[i]+"<b>"}
+	str=arr.join(" ");
+	document.getElementById("myTextArea").value=str;
+}}}}
+</script>
+</body>
+</html>
